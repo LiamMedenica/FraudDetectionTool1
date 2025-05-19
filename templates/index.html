@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Detection Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">  <!-- declares a HTML file, and connects to my CSS stylesheet -->
+    <script> 
+    // script for a spinner, hides upload form and shows a spinner to indicate processing                                                                             
+        function showLoading() {
+            document.getElementById("loading").style.display = "flex";
+            document.getElementById("form").style.display = "none";
+        }                                                                           
+    // displays the name of the uploaded file, e.g. Creditcard.csv
+        function showFileName(input) {
+            const fileName = input.files[0]?.name || "No file selected";
+            document.getElementById("upload-text").textContent = fileName + " loaded";
+        }
+    </script>
+</head>
+<body>
+    <main class="container">
+        <h1>Fraud Detection Tool</h1>
+
+        <section id="loading" class="loading" style="display: none;">        <!-- loads the spinner section when file uploaded -->
+            <div class="spinner"></div>
+            <p>Processing your file, please wait...</p>
+        </section>
+
+        {% if not file_loaded %}                                         <!-- this is the normal homepage, with the upload section-->
+            <section id="form">             
+                <p>Upload a CSV file to detect potential fraud cases</p>
+                <form method="POST" enctype="multipart/form-data" onsubmit="showLoading()">
+                    <div class="upload-area">
+                        <span id="upload-text">Choose file or drag and drop<br>CSV files only</span>
+                        <input type="file" name="csv_file" accept=".csv" required onchange="showFileName(this)">  <!-- updates the form with the filename when uploaded -->
+                    </div>
+                    <button type="submit">Run Analysis</button>
+                </form>
+            </section>
+        {% endif %}
+
+        {% if file_loaded %}             <!-- results display page-->
+            <section class="results">
+                <h2>Analysis Results</h2>
+                <div class="results-card">
+                    <div class="card-header">
+                        <h3>Fraud Detection Results</h3>
+                        <a href="/download" class="download-btn">Download Results</a>        <!-- link to download the csv file-->
+                    </div>
+                    {% if metrics %}
+                        <div class="metrics">                                                        <!-- the performance metrics display (rounded to 2 decimal places)-->
+                            <p>Precision (Fraud): {{ metrics['1']['precision']|round(2) }}</p>
+                            <p>Recall (Fraud): {{ metrics['1']['recall']|round(2) }}</p>
+                            <p>F1-Score (Fraud): {{ metrics['1']['f1-score']|round(2) }}</p>
+                            <p>Accuracy: {{ metrics['accuracy']|round(2) }}</p>
+                        </div>
+                    {% else %}
+                        <p>No performance metrics available (unsupervised mode).</p>         <!-- no metrics if unsupervised model was used -->
+                    {% endif %}
+                    <h3>Found {{ fraud_count }} Potential Fraud Cases</h3>
+                    <div class="table-container">
+                        {{ fraud_cases|safe }}                   <!-- displays the total number of fraud cases-->
+                    </div>
+                </div>
+                <a href="/"><button class="back-btn">Back to Home</button></a>       <!-- back to home button  -->
+            </section>
+        {% endif %}
+    </main>
+</body>
+</html>

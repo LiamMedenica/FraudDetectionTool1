@@ -1,0 +1,240 @@
+/* Base Styling */
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+    background-color: #1a1a1a;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+/* container to center all of the page content  */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* headings and text styling */
+h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #fff;
+    text-align: center;
+    margin-top: 30px;
+}
+
+h3 {
+    font-size: 1.25rem;
+    color: #fff;
+    margin: 10px 0;
+}
+
+p {
+    font-size: 1rem;
+    color: #d1d5db;
+    text-align: center;
+    margin: 10px 0;
+}
+
+/* section wrapper */
+section {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.upload-area {
+    position: relative;
+    padding: 40px;
+    border: 2px dashed #4b5563;
+    border-radius: 8px;
+    background-color: #2a2a2a;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.upload-area span {
+    display: block;
+    color: #d1d5db;
+    font-size: 1rem;
+}
+
+/* area to capture the click for a file upload */
+.upload-area input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* button styling */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4b5563;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #6b7280;
+}
+
+.results {
+    max-width: 800px;
+}
+
+/* card to contain the analysis results */
+.results-card {
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+}
+
+/* header within the results card  */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* download button */
+.download-btn {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    background-color: #4b5563;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.download-btn:hover {
+    background-color: #6b7280;
+}
+
+/* metrics styling */
+.metrics {
+    margin-bottom: 20px;
+}
+
+.metrics p {
+    text-align: left;
+    margin: 5px 0;
+}
+
+/* table for all of the frauds and makes it scrollable */
+.table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #4b5563;
+    border-radius: 6px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #4b5563;
+}
+
+/* makes the header of the table 'sticky' stuck to the top */
+th {
+    background-color: #3a3a3a;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    font-weight: 600;
+}
+
+td {
+    color: #d1d5db;
+}
+
+tr:hover {
+    background-color: #3a3a3a;
+}
+
+/* koading section, spinner and message inside the box  */
+.loading {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+/* spinner styling */
+.spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #4b5563;
+    border-top: 3px solid #d1d5db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* spinner animations  */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* back button */
+.back-btn {
+    margin-top: 20px;
+}
+
+/* layout adjustments for sizing */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    .results-card {
+        padding: 15px;
+    }
+
+    .download-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+}
